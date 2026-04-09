@@ -15,9 +15,4 @@ public class Player extends Entity {
         this.equippedWeapon = null;
         this.equippedArmor = null;
     }
-
-    @Override
-    public boolean isAlive() {
-        return health > 0;
-    }
 }
