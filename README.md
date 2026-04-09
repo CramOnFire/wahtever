@@ -1,4 +1,4 @@
-# SimpleRPG
+# SimpleRPG (placeholder name)
 
 World management: When an enemy dies, the player is given the choice to leave the area or search for another enemy.
 
