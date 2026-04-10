@@ -6,15 +6,20 @@ public abstract class Entity {
     int maxHealth;
     int baseAttack;
     int baseDefense;
-    int gold; // For the player, this represents the amount of gold they have. For enemies, this can represent the amount of gold they drop when defeated.
+    private int gold; // For the player, this represents the amount of gold they have. For enemies, this can represent the amount of gold they drop when defeated.
 
-    public Entity(String name, int maxHealth, int baseAttack, int baseDefense) {
+    public Entity(String name, int maxHealth, int baseAttack, int baseDefense, int gold) {
         this.name = name;
         this.health = maxHealth;
         this.maxHealth = maxHealth;
         this.baseAttack = baseAttack;
         this.baseDefense = baseDefense;
-        this.gold = 0; // Default gold value, can be overridden in subclasses.
+        this.gold = gold;
+    }
+
+    // Overloaded constructor for entities that don't have gold (like certain enemies or the player at the start of the game)
+    public Entity(String name, int maxHealth, int baseAttack, int baseDefense) {
+        this(name, maxHealth, baseAttack, baseDefense, 0);
     }
 
     // To modify to account for defense and other factors later
@@ -27,7 +32,22 @@ public abstract class Entity {
         }
     }
 
-    public void setGold(int gold) {
-        this.gold = gold;
+    public int getGold() {
+        return gold;
+    }
+
+    public void addGold(int amount) {
+        gold += amount;
+    }
+
+    public void deductGold(int amount) {
+        try {
+            if (amount > gold) {
+                throw new IllegalArgumentException("Not enough gold to deduct.");
+            }
+            gold -= amount;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error deducting gold: " + e.getMessage());
+        }
     }
 }

@@ -23,7 +23,7 @@
 | abstract Potion extends Item                                                                  |
 | ---------------------------------------------------------------------------------------------- |
 |                                                                                              |
-| + Potion(String name): Potion<br>+ abstract use(Entity entity): void                           |
+| + Potion(String name): Potion<br>+ abstract use(): void                           |
 
 | Weapon extends Item                                                                            |
 | ------------------------------------------------------------------------------------------------ |
@@ -34,7 +34,7 @@
 | abstract Entity                                                                                                                                 |
 | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | ~ name: String<br>~ health: int<br>~ maxHealth: int<br>~ baseAttack: int<br>~ baseDefense: int<br>~ gold: int                                   |
-| \+ Entity(String name, int maxHealth, int baseAttack, int baseDefense): Entity<br>\+ takeDamage(int damage): void<br>\+ setGold(int gold): void |
+| \+ Entity(String name, int maxHealth, int baseAttack, int baseDefense): Entity (defaults gold = 0)<br>\+ Entity(String name, int maxHealth, int baseAttack, int baseDefense, int gold): Entity<br>\+ takeDamage(int damage): void<br>\+ getGold(): gold<br>\+ addGold(int amount): void<br>\+ deductGold(int amount): void|
 
 | Player extends Entity                                                                                                                                                                                 |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -49,7 +49,7 @@
 | Slime extends Enemy |
 | ------------------- |
 |                     |
-| + Slime(): Slime    |
+| + Slime(): Slime (drops 2 gold)    |
 ## Combat
 
 
