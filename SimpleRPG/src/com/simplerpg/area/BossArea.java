@@ -14,7 +14,8 @@ public class BossArea implements Area {
     public int showMenu() {
         System.out.println("\n=== DRAGON!??!? ===");
         System.out.println("1. Fight");
-        System.out.println("2. Walk back");
+        System.out.println("2. Leave");
+        System.out.print("Choose: ");
         return 2;
     }
 
@@ -26,7 +27,7 @@ public class BossArea implements Area {
                 break;
 
             case 2:
-                engine.setArea(new FightingArea(engine));
+                engine.setArea(new PathArea(engine));
                 break;
         }
     }

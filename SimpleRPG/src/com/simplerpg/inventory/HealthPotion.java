@@ -14,4 +14,6 @@ public class HealthPotion extends Potion {
     @Override
     public void use() {}
 
+    public int getHealAmount() { return healAmount; }
+
 }

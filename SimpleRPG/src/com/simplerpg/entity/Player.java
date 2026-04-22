@@ -73,4 +73,18 @@ public class Player extends Entity {
             System.out.println("Error using potion: " + e.getMessage());
         }
     }
+
+    public List<Item> getInventory() { return inventory; }
+
+    public Weapon getEquippedWeapon() { return equippedWeapon; }
+    public void setEquippedWeapon(Weapon weapon) { this.equippedWeapon = weapon; }
+
+    public Armor getEquippedArmor() { return equippedArmor; }
+    public void setEquippedArmor(Armor armor) { this.equippedArmor = armor; }
+
+    public int getHealth() { return health; }
+    public int getMaxHealth() { return maxHealth; }
+    public void heal(int amount) {
+        health = Math.min(health + amount, maxHealth);
+    }
 }

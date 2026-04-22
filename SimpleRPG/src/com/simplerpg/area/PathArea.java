@@ -3,11 +3,11 @@ package com.simplerpg.area;
 import com.simplerpg.engine.GameEngine;
 
 // Change to path area, where the player can choose to fight in the forest or fight the dragon boss.
-public class FightingArea implements Area {
+public class PathArea implements Area {
 
     private GameEngine engine;
 
-    public FightingArea(GameEngine engine) {
+    public PathArea(GameEngine engine) {
         this.engine = engine;
     }
 
@@ -16,7 +16,8 @@ public class FightingArea implements Area {
         System.out.println("\n=== PATH ===");
         System.out.println("1. Forest");
         System.out.println("2. Dragon");
-        System.out.println("3. Walk back");
+        System.out.println("3. Town");
+        System.out.print("Choose: ");
         return 3;
     }
 

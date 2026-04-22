@@ -15,9 +15,10 @@ public class TownArea implements Area {
     @Override
     public int showMenu() {
         System.out.println("\n=== TOWN ===");
-        System.out.println("1. Explore");
+        System.out.println("1. ADVENTURE TIME!!!");
         System.out.println("2. Market");
         System.out.println("3. Exit");
+        System.out.print("Choose: ");
         return 3;
     }
 
@@ -25,7 +26,7 @@ public class TownArea implements Area {
     public void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                engine.setArea(new FightingArea(engine));
+                engine.setArea(new PathArea(engine));
                 break;
 
             case 2:
