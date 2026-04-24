@@ -12,3 +12,7 @@ public class Main {
 // javac -d . com/simplerpg/Main.java com/simplerpg/**/*.java com/simplerpg/*.java
 // java com.simplerpg.Main
 // for running the game
+
+// How to run:
+// powershell -ExecutionPolicy Bypass -File .\SimpleRPG\.vscode\build.ps1
+// java -cp .\SimpleRPG\bin com.simplerpg.Main
