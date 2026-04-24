@@ -2,7 +2,7 @@ package com.simplerpg.market.stock;
 
 import com.simplerpg.inventory.Weapon;
 import com.simplerpg.inventory.weapon.IronSword;
-import com.simplerpg.inventory.weapon.KnightsLongSword;
+import com.simplerpg.inventory.weapon.KnightsLongsword;
 import com.simplerpg.inventory.weapon.RoyalGreatsword;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class WeaponStock {
 
     public WeaponStock() {
         items.add(new ShopItem("Iron Sword",          15,  100));
-        items.add(new ShopItem("Knight's Long Sword", 40,  350));
+        items.add(new ShopItem("Knight's Longsword", 40,  350));
         items.add(new ShopItem("Royal Greatsword",    100, 900));
         sold = new boolean[items.size()];
     }
@@ -27,7 +27,7 @@ public class WeaponStock {
     public Weapon create(int idx) {
         switch (idx) {
             case 0:  return new IronSword();
-            case 1:  return new KnightsLongSword();
+            case 1:  return new KnightsLongsword();
             default: return new RoyalGreatsword();
         }
     }

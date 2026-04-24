@@ -5,6 +5,7 @@ import com.simplerpg.engine.GameEngine;
 import com.simplerpg.entity.Player;
 import com.simplerpg.inventory.HealthPotion;
 import com.simplerpg.inventory.Item;
+import com.simplerpg.inventory.Potion;
 import com.simplerpg.market.stock.PotionStock;
 import com.simplerpg.market.stock.ShopItem;
 
@@ -50,8 +51,9 @@ public class Apothecary implements Area {
         for (int i = 0; i < items.size(); i++) {
             ShopItem s = items.get(i);
             int owned = countOwned(player, s.getName());
-            System.out.printf("%d. %-24s | Heals: %3d HP | Price: %d gold (%d owned)%n",
-                i + 1, s.getName(), (int) s.getStat(), s.getPrice(), owned);
+            Potion potion = potionStock.create(i);
+            System.out.printf("%d. %-24s | %s | Price: %d gold (%d owned)%n",
+                i + 1, s.getName(), potion.getEffectDescription(), s.getPrice(), owned);
         }
         System.out.printf("%d. Cancel%n", items.size() + 1);
         System.out.print("Choose: ");
@@ -65,7 +67,7 @@ public class Apothecary implements Area {
             return;
         }
 
-        HealthPotion potion = potionStock.create(choice - 1);
+        Potion potion = potionStock.create(choice - 1);
         player.deductGold(selected.getPrice());
         player.getInventory().add(potion);
         System.out.printf("Purchased %s for %d gold! Remaining gold: %d%n",
@@ -75,9 +77,9 @@ public class Apothecary implements Area {
     private void handleUse() {
         Player player = engine.getPlayer();
 
-        List<HealthPotion> potions = new ArrayList<>();
+        List<Potion> potions = new ArrayList<>();
         for (Item item : player.getInventory()) {
-            if (item instanceof HealthPotion) potions.add((HealthPotion) item);
+            if (item instanceof Potion) potions.add((Potion) item);
         }
 
         if (potions.isEmpty()) { System.out.println("You have no potions in your inventory."); return; }
@@ -87,8 +89,8 @@ public class Apothecary implements Area {
             player.getHealth(), player.getMaxHealth(), missing);
 
         for (int i = 0; i < potions.size(); i++) {
-            HealthPotion p = potions.get(i);
-            System.out.printf("%d. %-24s | Heals: %d HP%n", i + 1, p.getName(), p.getHealAmount());
+            Potion p = potions.get(i);
+            System.out.printf("%d. %-24s | %s%n", i + 1, p.getName(), p.getEffectDescription());
         }
         System.out.printf("%d. Cancel%n", potions.size() + 1);
         System.out.print("Choose potion to use: ");
@@ -96,20 +98,34 @@ public class Apothecary implements Area {
         int choice = engine.getInput().getValidInt(1, potions.size() + 1);
         if (choice == potions.size() + 1) return;
 
-        HealthPotion selected = potions.get(choice - 1);
-        if (player.getHealth() >= player.getMaxHealth()) { System.out.println("You are already at full health!"); return; }
+        Potion selected = potions.get(choice - 1);
+        
+        // Check if health potion and already full health
+        if (selected instanceof HealthPotion) {
+            if (player.getHealth() >= player.getMaxHealth()) { 
+                System.out.println("You are already at full health!"); 
+                return; 
+            }
+        }
 
-        int healed = Math.min(selected.getHealAmount(), missing);
-        player.heal(healed);
-        player.getInventory().remove(selected);
-        System.out.printf("Used %s. Healed %d HP. HP: %d / %d%n",
-            selected.getName(), healed, player.getHealth(), player.getMaxHealth());
+        // Use the potion (this is out of combat, so we pass null for context)
+        if (selected instanceof HealthPotion) {
+            HealthPotion hp = (HealthPotion) selected;
+            int healed = Math.min(missing, hp.getHealAmount());
+            player.heal(healed);
+            player.getInventory().remove(selected);
+            System.out.printf("Used %s. Healed %d HP. HP: %d / %d%n",
+                selected.getName(), healed, player.getHealth(), player.getMaxHealth());
+            return;
+        }
+
+        System.out.println("This potion can only be used during combat.");
     }
 
     private int countOwned(Player player, String name) {
         int count = 0;
         for (Item item : player.getInventory()) {
-            if (item instanceof HealthPotion && item.getName().equals(name)) count++;
+            if (item instanceof Potion && item.getName().equals(name)) count++;
         }
         return count;
     }

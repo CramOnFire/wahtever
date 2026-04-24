@@ -2,7 +2,7 @@ package com.simplerpg.market.stock;
 
 import com.simplerpg.inventory.Armor;
 import com.simplerpg.inventory.armor.LeatherArmor;
-import com.simplerpg.inventory.armor.Chainmail;
+import com.simplerpg.inventory.armor.ChainmailArmor;
 import com.simplerpg.inventory.armor.KnightArmor;
 import com.simplerpg.inventory.armor.DragonHunterArmor;
 
@@ -16,7 +16,7 @@ public class ArmorStock {
 
     public ArmorStock() {
         items.add(new ShopItem("Leather Armor",       5,   80));
-        items.add(new ShopItem("Chainmail",           15,  200));
+        items.add(new ShopItem("Chainmail Armor",           15,  200));
         items.add(new ShopItem("Knight Armor",        40,  450));
         items.add(new ShopItem("Dragon Hunter Armor", 100, 950));
         sold = new boolean[items.size()];
@@ -29,7 +29,7 @@ public class ArmorStock {
     public Armor create(int idx) {
         switch (idx) {
             case 0:  return new LeatherArmor();
-            case 1:  return new Chainmail();
+            case 1:  return new ChainmailArmor();
             case 2:  return new KnightArmor();
             default: return new DragonHunterArmor();
         }

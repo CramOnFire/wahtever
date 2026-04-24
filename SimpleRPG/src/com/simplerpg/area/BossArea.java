@@ -1,6 +1,8 @@
 package com.simplerpg.area;
 
+import com.simplerpg.combat.CombatLoop;
 import com.simplerpg.engine.GameEngine;
+import com.simplerpg.entity.enemy.EnemyFactory;
 
 public class BossArea implements Area {
 
@@ -23,7 +25,12 @@ public class BossArea implements Area {
     public void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                System.out.println("Combat happens here (placeholder)");
+                CombatLoop bossCombat = new CombatLoop(engine);
+                EnemyFactory factory = new EnemyFactory();
+                CombatLoop.CombatResult result = bossCombat.start(() -> factory.createEnemy("mountain"));
+                if (result == CombatLoop.CombatResult.EXIT_AREA) {
+                    engine.setArea(new PathArea(engine));
+                }
                 break;
 
             case 2:
