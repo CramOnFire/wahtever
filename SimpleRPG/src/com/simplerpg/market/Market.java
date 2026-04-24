@@ -28,7 +28,7 @@ public class Market implements Area{
     public void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                engine.setArea(new BlackSmith(engine));
+                engine.setArea(new Blacksmith(engine));
                 break;
  
             case 2:

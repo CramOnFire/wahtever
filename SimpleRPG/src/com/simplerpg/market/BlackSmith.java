@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlackSmith implements Area {
+public class Blacksmith implements Area {
 
     private GameEngine engine;
     private final Random random = new Random();
@@ -32,7 +32,7 @@ public class BlackSmith implements Area {
     private static final String[] ARMOR_DECORATORS =
         { "Hardened", "Reinforced", "Unbreakable", "Worn", "Damaged", "Shattered" };
 
-    public BlackSmith(GameEngine engine) {
+    public Blacksmith(GameEngine engine) {
         this.engine = engine;
     }
 
