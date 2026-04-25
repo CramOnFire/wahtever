@@ -94,9 +94,8 @@ public class GameEngine {
 
     private void printLoreSequence(String[] lines) {
         for (int i = 0; i < lines.length; i++) {
-            System.out.println(lines[i]);
+            System.out.print(lines[i]);
             if (i < lines.length - 1) {
-                System.out.println("Press Enter for next line...");
                 input.waitForEnter();
             }
         }
