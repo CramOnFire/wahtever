@@ -30,6 +30,8 @@ public class ForestArea implements Area {
                 CombatLoop.CombatResult result = forestCombat.start(() -> factory.createEnemy("forest"));
                 if (result == CombatLoop.CombatResult.EXIT_AREA) {
                     engine.setArea(new PathArea(engine));
+                } else if (result == CombatLoop.CombatResult.PLAYER_DEAD) {
+                    engine.handlePlayerDeath();
                 }
                 break;
 

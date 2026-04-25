@@ -28,6 +28,10 @@ public class InputHandler {
         }
     }
 
+    public void waitForEnter() {
+        scanner.nextLine();
+    }
+
     public static void clearScreen() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {

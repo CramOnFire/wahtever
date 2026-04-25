@@ -6,11 +6,11 @@ import com.simplerpg.inventory.Armor;
 import com.simplerpg.inventory.Weapon;
 
 public class AttackAction implements CombatAction {
-    private final int chargeBonusDamage;
+    private final double chargeAttackMultiplier;
     private final double blockMultiplier;
 
-    public AttackAction(int chargeBonusDamage, double blockMultiplier) {
-        this.chargeBonusDamage = chargeBonusDamage;
+    public AttackAction(double chargeAttackMultiplier, double blockMultiplier) {
+        this.chargeAttackMultiplier = chargeAttackMultiplier;
         this.blockMultiplier = blockMultiplier;
     }
 
@@ -41,7 +41,7 @@ public class AttackAction implements CombatAction {
 
         boolean consumesCharge = false;
         if (input.isActorCharged()) {
-            attack += chargeBonusDamage;
+            attack = (int) Math.round(attack * chargeAttackMultiplier);
             consumesCharge = true;
         }
 
@@ -58,7 +58,7 @@ public class AttackAction implements CombatAction {
         }
 
         if (consumesCharge) {
-            message = attacker.getName() + " consumes charge for +" + chargeBonusDamage + " attack. " + message;
+            message = attacker.getName() + " consumes charge for x" + chargeAttackMultiplier + " attack. " + message;
         }
 
         return new ActionResult(

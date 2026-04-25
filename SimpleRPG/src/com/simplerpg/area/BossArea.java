@@ -27,9 +27,13 @@ public class BossArea implements Area {
             case 1:
                 CombatLoop bossCombat = new CombatLoop(engine);
                 EnemyFactory factory = new EnemyFactory();
-                CombatLoop.CombatResult result = bossCombat.start(() -> factory.createEnemy("mountain"));
+                CombatLoop.CombatResult result = bossCombat.start(() -> factory.createEnemy("mountain"), false);
                 if (result == CombatLoop.CombatResult.EXIT_AREA) {
                     engine.setArea(new PathArea(engine));
+                } else if (result == CombatLoop.CombatResult.ENEMY_DEFEATED) {
+                    engine.handleDragonVictory();
+                } else if (result == CombatLoop.CombatResult.PLAYER_DEAD) {
+                    engine.handlePlayerDeath();
                 }
                 break;
 
