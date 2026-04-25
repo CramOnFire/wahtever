@@ -1,4 +1,4 @@
-# SimpleRPG (placeholder name)
+# Tales of Triumph and Tragedy
 
 ## How to run:
 1. Clone the repository
@@ -7,6 +7,8 @@
 powershell -ExecutionPolicy Bypass -File .\SimpleRPG\.vscode\build.ps1
 java -cp .\SimpleRPG\bin com.simplerpg.Main
 ```
+
+Note: There is an `addGold` toggle in `GameEngine.java` for testing purposes.
 
 Old how to run
 ```Shell
