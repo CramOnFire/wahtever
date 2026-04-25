@@ -4,15 +4,15 @@
 1. Clone the repository
 2. Run the following commands in the terminal (compile Java files and run `Main`):
 ```Shell
-powershell -ExecutionPolicy Bypass -File .\SimpleRPG\.vscode\build.ps1
-java -cp .\SimpleRPG\bin com.simplerpg.Main
+powershell -ExecutionPolicy Bypass -File .\TTT\.vscode\build.ps1
+java -cp .\TTT\bin com.ttt.Main
 ```
 
 Note: There is an `addGold` toggle in `GameEngine.java` for testing purposes.
 
 Old how to run
 ```Shell
-cd ~/newwok/SimpleRPG/src
-javac -d . com/simplerpg/Main.java com/simplerpg/**/*.java com/simplerpg/*.java
-java com.simplerpg.Main
+cd ~/newwok/TTT/src
+javac -d . com/ttt/Main.java com/ttt/**/*.java com/ttt/*.java
+java com.ttt.Main
 ```
