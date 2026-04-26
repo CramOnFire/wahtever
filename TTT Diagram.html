@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>tales-of-triumph-and-tragedy — Class Diagram</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ent:  #1e3a8a; --ent-l:  #dbeafe;
+  --inv:  #065f46; --inv-l:  #d1fae5;
+  --comb: #7c2d12; --comb-l: #ffedd5;
+  --area: #0c4a6e; --area-l: #e0f2fe;
+  --mkt:  #581c87; --mkt-l:  #f3e8ff;
+  --eng:  #374151; --eng-l:  #f1f5f9;
+  --border: #1e293b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'JetBrains Mono', monospace;
+  background: #f1f5f9;
+  padding: 28px 24px 80px;
+  color: #1e293b;
+}
+h1 { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+.meta { font-size: 10px; color: #94a3b8; margin-bottom: 14px; }
+
+/* Legend */
+.legend {
+  display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+  background: white; border: 1px solid #e2e8f0; border-radius: 6px;
+  padding: 8px 14px; margin-bottom: 20px; font-size: 10px; color: #64748b;
+}
+.ld { width: 9px; height: 9px; border-radius: 2px; display: inline-block; margin-right: 3px; vertical-align: middle; }
+
+/* Section wrapper */
+.section {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px 16px 20px;
+  margin-bottom: 20px;
+}
+.section-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 4px 10px; border-radius: 4px;
+  display: inline-block; color: white; margin-bottom: 14px;
+}
+
+/* Row of boxes */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 0;
+}
+.row + .row { margin-top: 14px; }
+
+/* The arrow between rows */
+.down-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 6px 0;
+  padding-left: 14px;
+  font-size: 11px;
+  color: #94a3b8;
+}
+.arrow-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 14px;
+  margin-bottom: 4px;
+}
+.arrow-line { width: 1px; height: 14px; background: #94a3b8; }
+.arrow-tri  { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 7px solid #94a3b8; }
+.arrow-label { font-size: 9px; color: #94a3b8; margin-top: 2px; }
+
+/* UML class box */
+.uml {
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  min-width: 140px;
+  background: white;
+  flex-shrink: 0;
+}
+.uml-hdr {
+  padding: 5px 8px 4px;
+  text-align: center;
+}
+.uml-stereo { font-size: 7px; font-style: italic; color: rgba(255,255,255,0.7); display: block; line-height: 1.2; }
+.uml-name   { font-size: 9px; font-weight: 700; color: white; display: block; line-height: 1.3; }
+.uml-name-i { font-size: 9px; font-weight: 700; color: white; font-style: italic; display: block; line-height: 1.3; }
+.uml-body { border-top: 1.5px solid var(--border); }
+.uml-sec  { padding: 4px 8px; border-top: 1px solid #e2e8f0; min-height: 22px; }
+.uml-sec:first-child { border-top: none; }
+.uml-row  { font-size: 7.5px; color: #374151; line-height: 1.6; white-space: nowrap; }
+.uml-mrow { font-size: 7.5px; color: #1e3a8a; line-height: 1.6; white-space: nowrap; }
+
+/* Relationship label between boxes in a row */
+.rel {
+  display: flex; align-items: center; font-size: 9px; color: #94a3b8;
+  padding-top: 20px; white-space: nowrap;
+}
+.rel-dash { border-top: 1px dashed #94a3b8; width: 18px; display: inline-block; vertical-align: middle; }
+.rel-arr  { display: inline-block; vertical-align: middle; font-size: 11px; }
+
+/* Indent for child rows */
+.indent { padding-left: 30px; border-left: 2px solid #e2e8f0; margin-left: 84px; }
+.parent-label { font-size: 9px; color: #94a3b8; padding-left: 14px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+.parent-label::before { content:'▸'; }
+
+.chip { font-size: 7.5px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 3px; padding: 2px 7px; color: #64748b; display: inline-block; white-space: nowrap; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 6px 0; }
+</style>
+</head>
+<body>
+
+<h1>tales-of-triumph-and-tragedy — UML Class Diagram</h1>
+<div class="meta">tales-of-triumph-and-tragedy &nbsp;/&nbsp; 59 classes &nbsp;·&nbsp; Java</div>
+
+<div class="legend">
+  <span><span class="ld" style="background:var(--ent)"></span>Entity</span>
+  <span><span class="ld" style="background:var(--inv)"></span>Inventory</span>
+  <span><span class="ld" style="background:var(--comb)"></span>Combat</span>
+  <span><span class="ld" style="background:var(--area)"></span>Area</span>
+  <span><span class="ld" style="background:var(--mkt)"></span>Market</span>
+  <span><span class="ld" style="background:var(--eng)"></span>Engine</span>
+  <span>▲ = extends &nbsp; ▷ = implements &nbsp; <em>italic</em> = abstract/interface</span>
+</div>
+
+<!-- ════════════ 1. ENTITY ════════════ -->
+<div class="section">
+  <div class="section-title" style="background:var(--ent)">1 · Entity</div>
+
+  <!-- Entity root -->
+  <div class="row">
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--ent)">
+        <span class="uml-stereo">«abstract»</span>
+        <span class="uml-name-i">Entity</span>
+      </div>
+      <div class="uml-body">
+        <div class="uml-sec">
+          <div class="uml-row">- name: String</div>
+          <div class="uml-row">- health: int</div>
+          <div class="uml-row">- maxHealth: int</div>
+          <div class="uml-row">- baseAttack: int</div>
+          <div class="uml-row">- baseDefense: int</div>
+          <div class="uml-row">- gold: int</div>
+        </div>
+        <div class="uml-sec">
+          <div class="uml-mrow">+ takeDamage(int)</div>
+          <div class="uml-mrow">+ heal(int)</div>
+          <div class="uml-mrow">+ isAlive(): boolean</div>
+          <div class="uml-mrow">+ getName(): String</div>
+          <div class="uml-mrow">+ getGold(): int</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- extends arrow -->
+  <div class="parent-label" style="margin-top:8px">extends Entity</div>
+
+  <!-- Player + Enemy -->
+  <div class="row">
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--ent)">
+        <span class="uml-name">Player</span>
+      </div>
+      <div class="uml-body">
+        <div class="uml-sec">
+          <div class="uml-row">- inventory: List&lt;Item&gt;</div>
+          <div class="uml-row">- equippedWeapon: Weapon</div>
+          <div class="uml-row">- equippedArmor: Armor</div>
+        </div>
+        <div class="uml-sec">
+          <div class="uml-mrow">+ equipWeapon(Weapon)</div>
+          <div class="uml-mrow">+ equipArmor(Armor)</div>
+          <div class="uml-mrow">+ unequipWeapon()</div>
+          <div class="uml-mrow">+ unequipArmor()</div>
+          <div class="uml-mrow">+ addToInventory(Item)</div>
+          <div class="uml-mrow">+ deductGold(int)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--ent)">
+        <span class="uml-stereo">«abstract»</span>
+        <span class="uml-name-i">Enemy</span>
+      </div>
+      <div class="uml-body">
+        <div class="uml-sec">
+          <div class="uml-row">- name: String</div>
+          <div class="uml-row">- health: int</div>
+          <div class="uml-row">- baseAttack: int</div>
+          <div class="uml-row">- baseDefense: int</div>
+        </div>
+        <div class="uml-sec">
+          <div class="uml-mrow">+ Enemy(String, int, int, int, int)</div>
+          <div class="uml-mrow">+ getGoldDrop(): int</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--eng)">
+        <span class="uml-name">EnemyFactory</span>
+      </div>
+      <div class="uml-body">
+        <div class="uml-sec">
+          <div class="uml-row">- random: Random</div>
+        </div>
+        <div class="uml-sec">
+          <div class="uml-mrow">+ createEnemy(String): Enemy</div>
+          <div class="uml-mrow">+ weightedRoll(int[]): int</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Enemy subclasses -->
+  <div class="parent-label" style="margin-top:8px; padding-left:168px">extends Enemy</div>
+  <div class="row" style="padding-left:168px">
+    <div class="uml"><div class="uml-hdr" style="background:var(--ent)"><span class="uml-name">Slime</span></div><div class="uml-body"><div class="uml-sec"><div class="uml-row">- hp=30, - atk=5, - def=0, - gold=8</div></div><div class="uml-sec"><div class="uml-mrow">+ Slime()</div></div></div></div>
+    <div class="uml"><div class="uml-hdr" style="background:var(--ent)"><span class="uml-name">Snake</span></div><div class="uml-body"><div class="uml-sec"><div class="uml-row">- hp=50, - atk=8, - def=5, - gold=30</div></div><div class="uml-sec"><div class="uml-mrow">+ Snake()</div></div></div></div>
+    <div class="uml"><div class="uml-hdr" style="background:var(--ent)"><span class="uml-name">Sorcerer</span></div><div class="uml-body"><div class="uml-sec"><div class="uml-row">- hp=80, - atk=12, - def=10, - gold=80</div></div><div class="uml-sec"><div class="uml-mrow">+ Sorcerer()</div></div></div></div>
+    <div class="uml"><div class="uml-hdr" style="background:var(--ent)"><span class="uml-name">Dragon</span></div><div class="uml-body"><div class="uml-sec"><div class="uml-row">- hp=250, - atk=25, - def=25, - gold=1200</div></div><div class="uml-sec"><div class="uml-mrow">+ Dragon()</div></div></div></div>
+  </div>
+</div>
+
+<!-- ════════════ 2. INVENTORY ════════════ -->
+<div class="section">
+  <div class="section-title" style="background:var(--inv)">2 · Inventory</div>
+
+  <!-- Item root -->
+  <div class="row">
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--inv)">
+        <span class="uml-stereo">«abstract»</span>
+        <span class="uml-name-i">Item</span>
+      </div>
+      <div class="uml-body">
+        <div class="uml-sec"><div class="uml-row">- name: String</div></div>
+        <div class="uml-sec"><div class="uml-mrow">+ getName(): String</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- extends Item -->
+  <div class="parent-label" style="margin-top:8px">extends Item</div>
+  <div class="row">
+    <!-- Weapon branch -->
+    <div>
+      <div class="uml">
+        <div class="uml-hdr" style="background:var(--inv)"><span class="uml-name">Weapon</span></div>
+        <div class="uml-body">
+          <div class="uml-sec"><div class="uml-row"># baseDamage: double</div></div>
+          <div class="uml-sec"><div class="uml-mrow">+ getBaseDamage(): double</div></div>
+        </div>
+      </div>
+      <div class="parent-label" style="margin-top:6px">extends Weapon</div>
+      <div class="chips">
+        <span class="chip">IronSword</span>
+        <span class="chip">KnightsLongsword</span>
+        <span class="chip">RoyalGreatsword</span>
+      </div>
+      <div style="margin-top:8px">
+        <div class="uml">
+          <div class="uml-hdr" style="background:var(--inv)">
+            <span class="uml-stereo">«abstract»</span>
+            <span class="uml-name-i">WeaponDecorator</span>
+          </div>
+          <div class="uml-body">
+            <div class="uml-sec"><div class="uml-row">- wrapped: Weapon</div></div>
+            <div class="uml-sec"><div class="uml-mrow">+ removeDecorator(): Weapon</div></div>
+          </div>
+        </div>
+        <div class="parent-label" style="margin-top:6px">extends WeaponDecorator</div>
+        <div class="chips">
+          <span class="chip">SharpDecorator</span>
+          <span class="chip">KeenDecorator</span>
+          <span class="chip">LegendaryDecorator</span>
+          <span class="chip">DullDecorator</span>
+          <span class="chip">ChippedDecorator</span>
+          <span class="chip">BrokenDecorator</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Armor branch -->
+    <div>
+      <div class="uml">
+        <div class="uml-hdr" style="background:var(--inv)"><span class="uml-name">Armor</span></div>
+        <div class="uml-body">
+          <div class="uml-sec"><div class="uml-row"># defense: double</div></div>
+          <div class="uml-sec"><div class="uml-mrow">+ getDefense(): double</div></div>
+        </div>
+      </div>
+      <div class="parent-label" style="margin-top:6px">extends Armor</div>
+      <div class="chips">
+        <span class="chip">LeatherArmor</span>
+        <span class="chip">ChainmailArmor</span>
+        <span class="chip">KnightArmor</span>
+        <span class="chip">DragonHunterArmor</span>
+      </div>
+      <div style="margin-top:8px">
+        <div class="uml">
+          <div class="uml-hdr" style="background:var(--inv)">
+            <span class="uml-stereo">«abstract»</span>
+            <span class="uml-name-i">ArmorDecorator</span>
+          </div>
+          <div class="uml-body">
+            <div class="uml-sec"><div class="uml-row">- wrapped: Armor</div></div>
+            <div class="uml-sec"><div class="uml-mrow">+ removeDecorator(): Armor</div></div>
+          </div>
+        </div>
+        <div class="parent-label" style="margin-top:6px">extends ArmorDecorator</div>
+        <div class="chips">
+          <span class="chip">HardenedDecorator</span>
+          <span class="chip">ReinforcedDecorator</span>
+          <span class="chip">UnbreakableDecorator</span>
+          <span class="chip">WornDecorator</span>
+          <span class="chip">DamagedDecorator</span>
+          <span class="chip">ShatteredDecorator</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Potion branch -->
+    <div>
+      <div class="uml">
+        <div class="uml-hdr" style="background:var(--inv)">
+          <span class="uml-stereo">«abstract»</span>
+          <span class="uml-name-i">Potion</span>
+        </div>
+        <div class="uml-body">
+          <div class="uml-sec"><div class="uml-row">- (inherits Item)</div></div>
+          <div class="uml-sec"><div class="uml-mrow">+ applyInCombat(Player, CombatContext): void {abstract}</div><div class="uml-mrow">+ getEffectDescription(): String {abstract}</div></div>
+        </div>
+      </div>
+      <div class="parent-label" style="margin-top:6px">extends Potion</div>
+      <div class="chips">
+        <span class="chip">HealthPotion</span>
+        <span class="chip">StrengthPotion</span>
+        <span class="chip">ToughPotion</span>
+      </div>
+    </div>
+
+    <!-- InventoryMenu (standalone) -->
+    <div>
+      <div class="uml">
+        <div class="uml-hdr" style="background:var(--eng)"><span class="uml-name">InventoryMenu</span></div>
+        <div class="uml-body">
+          <div class="uml-sec">
+            <div class="uml-row">- engine: GameEngine</div>
+          </div>
+          <div class="uml-sec">
+            <div class="uml-mrow">+ show(): void</div>
+            <div class="uml-mrow">+ pickWeapon()</div>
+            <div class="uml-mrow">+ pickArmor()</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ 3. COMBAT ════════════ -->
+<div class="section">
+  <div class="section-title" style="background:var(--comb)">3 · Combat</div>
+
+  <div class="row">
+    <!-- CombatAction interface -->
+    <div>
+      <div class="uml">
+        <div class="uml-hdr" style="background:var(--comb)">
+          <span class="uml-stereo">«interface»</span>
+          <span class="uml-name-i">CombatAction</span>
+        </div>
+        <div class="uml-body">
+          <div class="uml-sec"><div class="uml-row">&nbsp;</div></div>
+          <div class="uml-sec"><div class="uml-mrow">+ execute(ActionExecInput): ActionResult</div></div>
+        </div>
+      </div>
+      <div class="parent-label" style="margin-top:6px">implements CombatAction</div>
+      <div class="chips">
+        <span class="chip">AttackAction</span>
+        <span class="chip">BlockAction</span>
+        <span class="chip">ChargeAction</span>
+        <span class="chip">FleeAction</span>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--comb)"><span class="uml-name">CombatLoop</span></div>
+      <div class="uml-body">
+        <div class="uml-sec"><div class="uml-row">- engine: GameEngine</div></div>
+        <div class="uml-sec">
+          <div class="uml-mrow">+ run(Player, Enemy)</div>
+          <div class="uml-mrow">+ choosePlayerAction()</div>
+          <div class="uml-mrow">+ usePotionInCombat()</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--comb)"><span class="uml-name">CombatContext</span></div>
+      <div class="uml-body">
+        <div class="uml-sec">
+          <div class="uml-row">- player: Player</div>
+          <div class="uml-row">- enemy: Enemy</div>
+          <div class="uml-row">- isBlocking: boolean</div>
+          <div class="uml-row">- isCharging: boolean</div>
+          <div class="uml-row">- round: int</div>
+        </div>
+        <div class="uml-sec">
+          <div class="uml-mrow">+ getPlayer()</div>
+          <div class="uml-mrow">+ getEnemy()</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--comb)"><span class="uml-name">ActionResult</span></div>
+      <div class="uml-body">
+        <div class="uml-sec">
+          <div class="uml-row">- success: boolean</div>
+          <div class="uml-row">- message: String</div>
+          <div class="uml-row">- damage: int</div>
+        </div>
+        <div class="uml-sec">
+          <div class="uml-mrow">+ isSuccess()</div>
+          <div class="uml-mrow">+ getMessage()</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--comb)"><span class="uml-name">ActionExecInput</span></div>
+      <div class="uml-body">
+        <div class="uml-sec">
+          <div class="uml-row">- attacker: Entity</div>
+          <div class="uml-row">- defender: Entity</div>
+          <div class="uml-row">- context: CombatContext</div>
+        </div>
+        <div class="uml-sec">
+          <div class="uml-mrow">+ getAttacker()</div>
+          <div class="uml-mrow">+ getDefender()</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--comb)"><span class="uml-name">CombatBalance</span></div>
+      <div class="uml-body">
+        <div class="uml-sec">
+          <div class="uml-row">+ BLOCK_REDUCTION</div>
+          <div class="uml-row">+ CHARGE_MULT</div>
+          <div class="uml-row">+ FLEE_CHANCE</div>
+        </div>
+        <div class="uml-sec"><div class="uml-mrow">&nbsp;</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ 4. AREA ════════════ -->
+<div class="section">
+  <div class="section-title" style="background:var(--area)">4 · Area</div>
+  <div class="row">
+    <div>
+      <div class="uml">
+        <div class="uml-hdr" style="background:var(--area)">
+          <span class="uml-stereo">«interface»</span>
+          <span class="uml-name-i">Area</span>
+        </div>
+        <div class="uml-body">
+          <div class="uml-sec"><div class="uml-row">&nbsp;</div></div>
+          <div class="uml-sec">
+            <div class="uml-mrow">+ showMenu(): void</div>
+            <div class="uml-mrow">+ handleChoice(int)</div>
+          </div>
+        </div>
+      </div>
+      <div class="parent-label" style="margin-top:6px">implements Area</div>
+      <div class="chips">
+        <span class="chip">TownArea</span>
+        <span class="chip">ForestArea</span>
+        <span class="chip">PathArea</span>
+        <span class="chip">BossArea</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ 5. MARKET ════════════ -->
+<div class="section">
+  <div class="section-title" style="background:var(--mkt)">5 · Market &nbsp;<span style="font-weight:400;opacity:.7">(all implement Area)</span></div>
+  <div class="row">
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--mkt)"><span class="uml-name">Market</span></div>
+      <div class="uml-body">
+        <div class="uml-sec"><div class="uml-row">&nbsp;</div></div>
+        <div class="uml-sec">
+          <div class="uml-mrow">+ showMenu()</div>
+          <div class="uml-mrow">+ handleChoice(int)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--mkt)"><span class="uml-name">Blacksmith</span></div>
+      <div class="uml-body">
+        <div class="uml-sec">
+          <div class="uml-row">- weaponStock: WeaponStock</div>
+          <div class="uml-row">- armorStock: ArmorStock</div>
+        </div>
+        <div class="uml-sec">
+          <div class="uml-mrow">+ handlePurchaseWeapon()</div>
+          <div class="uml-mrow">+ handlePurchaseArmor()</div>
+          <div class="uml-mrow">+ handleModify()</div>
+          <div class="uml-mrow">+ getModifyCost(Item): int</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--mkt)"><span class="uml-name">Apothecary</span></div>
+      <div class="uml-body">
+        <div class="uml-sec"><div class="uml-row">- potionStock: PotionStock</div></div>
+        <div class="uml-sec"><div class="uml-mrow">+ handlePurchasePotion()</div></div>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--mkt)"><span class="uml-name">ShopItem</span></div>
+      <div class="uml-body">
+        <div class="uml-sec">
+          <div class="uml-row">- name: String</div>
+          <div class="uml-row">- price: int</div>
+          <div class="uml-row">- item: Item</div>
+        </div>
+        <div class="uml-sec">
+          <div class="uml-mrow">+ getName()</div>
+          <div class="uml-mrow">+ getPrice()</div>
+          <div class="uml-mrow">+ getItem(): Item</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--mkt)"><span class="uml-name">WeaponStock</span></div>
+      <div class="uml-body">
+        <div class="uml-sec"><div class="uml-row">- items: List&lt;ShopItem&gt;</div></div>
+        <div class="uml-sec"><div class="uml-mrow">+ getItems()</div></div>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--mkt)"><span class="uml-name">ArmorStock</span></div>
+      <div class="uml-body">
+        <div class="uml-sec"><div class="uml-row">- items: List&lt;ShopItem&gt;</div></div>
+        <div class="uml-sec"><div class="uml-mrow">+ getItems()</div></div>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--mkt)"><span class="uml-name">PotionStock</span></div>
+      <div class="uml-body">
+        <div class="uml-sec"><div class="uml-row">- items: List&lt;ShopItem&gt;</div></div>
+        <div class="uml-sec"><div class="uml-mrow">+ getItems()</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ 6. ENGINE ════════════ -->
+<div class="section">
+  <div class="section-title" style="background:var(--eng)">6 · Engine / Entry</div>
+  <div class="row">
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--eng)"><span class="uml-name">GameEngine</span></div>
+      <div class="uml-body">
+        <div class="uml-sec">
+          <div class="uml-row">- player: Player</div>
+          <div class="uml-row">- currentArea: Area</div>
+          <div class="uml-row">- input: InputHandler</div>
+        </div>
+        <div class="uml-sec">
+          <div class="uml-mrow">+ run(): void</div>
+          <div class="uml-mrow">+ setArea(Area)</div>
+          <div class="uml-mrow">+ getPlayer(): Player</div>
+          <div class="uml-mrow">+ getInput(): InputHandler</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--eng)"><span class="uml-name">InputHandler</span></div>
+      <div class="uml-body">
+        <div class="uml-sec"><div class="uml-row">&nbsp;</div></div>
+        <div class="uml-sec">
+          <div class="uml-mrow">+ getValidInt(int,int): int</div>
+          <div class="uml-mrow">+ getString(): String</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="uml">
+      <div class="uml-hdr" style="background:var(--eng)"><span class="uml-name">Main</span></div>
+      <div class="uml-body">
+        <div class="uml-sec"><div class="uml-row">&nbsp;</div></div>
+        <div class="uml-sec"><div class="uml-mrow">+ main(String[]): void</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
