@@ -27,10 +27,10 @@ public class GameEngine {
     }
  
     public void run() {
-        System.out.println("- Tales of Triumph and Tragedy -");
+        System.out.println("=== Tales of Triumph and Tragedy ===");
 
         printLoreSequence(new String[] {
-            "Sword and shield, medieval kingdom, and a looming dragon threat.",
+            "\nSword and shield, medieval kingdom, and a looming dragon threat.",
             "Old tomes of a hero's journey, from humble beginnings to legendary deeds.",
             "All fitting elements of a fantasy.",
             "But why would these inscriptions be written in a language indecipherable to a child?",
@@ -39,7 +39,7 @@ public class GameEngine {
             "A divination was performed: The dragon will awaken from its slumber, and only a hero can stop it.",
             "The king offered a reward to anyone who could defeat the dragon, but no one dared to face it.",
             player.getName() + ": At this point, I had nothing to lose. I decided to take on the challenge, hoping to change my fate.",
-            "And so begins the tale of " + player.getName() + ", the unlikely hero destined to confront the dragon and save the kingdom."
+            "And so begins the tale of " + player.getName() + ", the unlikely hero destined to confront the dragon and save the kingdom.\n"
         });
 
         while (running) {
@@ -74,6 +74,10 @@ public class GameEngine {
         System.out.println("\n=== VICTORY ===");
 
         printLoreSequence(new String[] {
+            "",
+
+
+            
             "[Ending Placeholder] The dragon falls, and silence returns to the mountains.",
             "[Ending Placeholder] Fires in distant villages burn with hope once again.",
             "[Ending Placeholder] But your story does not have to end here."
