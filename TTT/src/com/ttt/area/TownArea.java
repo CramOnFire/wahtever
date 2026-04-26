@@ -1,10 +1,10 @@
 package com.ttt.area;
+
 import com.ttt.engine.GameEngine;
 import com.ttt.market.Market;
 
 
 public class TownArea implements Area {
-
     private GameEngine engine;
 
     public TownArea(GameEngine engine) {

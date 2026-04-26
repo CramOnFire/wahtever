@@ -2,9 +2,7 @@ package com.ttt.area;
 
 import com.ttt.engine.GameEngine;
 
-// Change to path area, where the player can choose to fight in the forest or fight the dragon boss.
 public class PathArea implements Area {
-
     private GameEngine engine;
 
     public PathArea(GameEngine engine) {

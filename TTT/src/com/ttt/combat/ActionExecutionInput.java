@@ -1,7 +1,6 @@
 package com.ttt.combat;
 
 import java.util.Random;
-
 import com.ttt.entity.Entity;
 
 public class ActionExecutionInput {

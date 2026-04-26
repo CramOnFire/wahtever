@@ -12,7 +12,7 @@ import com.ttt.inventory.Item;
 import com.ttt.inventory.Potion;
 
 public class CombatLoop {
-
+    
     private final GameEngine engine;
     private final Random random = new Random();
     private final CombatAction attackAction = new AttackAction(CombatBalance.CHARGE_ATTACK_MULTIPLIER, CombatBalance.BLOCK_DAMAGE_MULTIPLIER);

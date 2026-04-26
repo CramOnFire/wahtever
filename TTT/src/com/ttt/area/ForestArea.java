@@ -5,7 +5,6 @@ import com.ttt.engine.GameEngine;
 import com.ttt.entity.enemy.EnemyFactory;
 
 public class ForestArea implements Area {
-
     private GameEngine engine;
 
     public ForestArea(GameEngine engine) {

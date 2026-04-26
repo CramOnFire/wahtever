@@ -3,7 +3,7 @@ package com.ttt.inventory;
 import com.ttt.combat.CombatContext;
 import com.ttt.entity.Player;
 
-// Temporarily multiplies the next attack damage.
+// Temporarily multiplies future attack damage.
 public class StrengthPotion extends Potion {
     private final int attackPercentBonus;  // e.g., 20 means 1.20x multiplier
 

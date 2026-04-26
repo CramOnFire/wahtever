@@ -17,7 +17,7 @@ public class GameEngine {
     public GameEngine() {
         input = new InputHandler();
         player = new Player("Aaron");
-        // player.addGold(100000);
+        player.addGold(100000);
         currentArea = new TownArea(this);
         running = true;
     }
@@ -78,7 +78,7 @@ public class GameEngine {
             "The kingdom is saved from calamity, no longer bound by fear.",
             "Villagers celebrate, and the hero's name is etched into history.",
             "You begin your new life as a royal knight, free from the hardships of your past.",
-            "But deep down, you know that the world is full of challenges, and your journey is far from over."
+            "But deep down, you know that the world is full of challenges, and your journey is far from over.\n"
         });
 
         System.out.println("1. Continue playing");
