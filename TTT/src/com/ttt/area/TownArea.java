@@ -33,8 +33,10 @@ public class TownArea implements Area {
                 break;
 
             case 3:
-                System.out.println("Exiting game...");
-                System.exit(0);
+                if (engine.confirmExitGame()) {
+                    System.out.println("Exiting game...");
+                    engine.stopGame();
+                }
                 break;
         }
     }

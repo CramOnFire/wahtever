@@ -17,7 +17,7 @@ public class GameEngine {
     public GameEngine() {
         input = new InputHandler();
         player = new Player("Aaron");
-        player.addGold(100000);
+        // player.addGold(100000);
         currentArea = new TownArea(this);
         running = true;
     }
@@ -63,6 +63,19 @@ public class GameEngine {
         return market;
     }
 
+    public boolean confirmExitGame() {
+        System.out.println("Are you sure you want to exit the game?");
+        System.out.println("1. Yes, exit game");
+        System.out.println("2. No, continue playing");
+        System.out.print("Choose: ");
+        int choice = input.getValidInt(1, 2);
+        return choice == 1;
+    }
+
+    public void stopGame() {
+        running = false;
+    }
+
     public void handlePlayerDeath() {
         System.out.println("\n=== GAME OVER ===");
         System.out.println("Press Enter to exit...");
@@ -86,7 +99,7 @@ public class GameEngine {
         System.out.print("Choose: ");
         int choice = input.getValidInt(1, 2);
 
-        if (choice == 2) {
+        if (choice == 2 && confirmExitGame()) {
             running = false;
             return;
         }
