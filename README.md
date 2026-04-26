@@ -6,13 +6,13 @@
 1. Clone the repository
 2. Run the following commands in the terminal (compile Java files and run `Main`):
 
-Windows
+### Windows
 ```Shell
 powershell -ExecutionPolicy Bypass -File .\TTT\.vscode\build.ps1
 java -cp .\TTT\bin com.ttt.Main
 ```
 
-Linux
+### Linux
 ```Shell
 cd ~/newwok/TTT/src
 javac -d . com/ttt/Main.java com/ttt/**/*.java com/ttt/*.java
